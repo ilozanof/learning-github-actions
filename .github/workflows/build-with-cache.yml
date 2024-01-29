@@ -24,7 +24,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: $HOME/.m2
-          restore-keys: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
       - name: List Env Vars
         run: env
