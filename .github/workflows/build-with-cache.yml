@@ -35,7 +35,7 @@ jobs:
             [{
                 "id": "GitHub-repo",
                 "username": "ilozanof",
-                "password": ${{ github.token }}
+                "password": "${{ github.token }}"
             }]
 
       # We deploy the package into GitHub packages
