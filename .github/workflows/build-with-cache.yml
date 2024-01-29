@@ -16,7 +16,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-          server_id: GitHub-repo
 
       - name: build with Maven
         run: mvn -B package --file pom.xml
@@ -28,6 +27,16 @@ jobs:
           path: $HOME/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
+      - name: Set up privileges to publish to GitHub packages
+      - uses: s4u/maven-settings-action@v2.3.0
+        with:
+          servers: |
+            [{
+                "id": "GitHub-repo",
+                "username": "ilozanof",
+                "password": ${{ github.token }}
+            }]
 
       # We deploy the package into GitHub packages
       - name: Publish to GitHub Packages Apache Maven
