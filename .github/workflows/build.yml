@@ -21,3 +21,5 @@ jobs:
           git --version
           echo is Maven installed?
           mvn --version
+          echo What is the workspace location?
+          echo $RUNNER_WORKSPACE
