@@ -23,3 +23,7 @@ jobs:
           mvn --version
           echo What is the workspace location?
           echo $RUNNER_WORKSPACE
+          echo Who Am I?
+          whoami
+          echo What environment variables are available?
+          env
