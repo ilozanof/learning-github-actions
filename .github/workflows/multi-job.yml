@@ -23,7 +23,7 @@ jobs:
       - name: build with Maven
         run: mvn clean install
   build-on-windows:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout the Code
         uses: actions/checkout@v3
