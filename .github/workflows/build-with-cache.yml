@@ -1,0 +1,30 @@
+name: Getting started
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: build with Maven
+        run: mvn clean install
+
+      - name: Set up a cache for Maven
+        uses: actions/cache@v2
+        with:
+          path: $HOME/.m2
+          restore-keys: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+
+      - name: List Env Vars
+        run: env
