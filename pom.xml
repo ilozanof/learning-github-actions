@@ -18,7 +18,7 @@
 
   <distributionManagement>
     <repository>
-      <id>github</id>
+      <id>GitHub-repo</id>
       <name>GitHub-repo</name>
       <url>https://maven.pkg.github.com/ilozanof/learning-github-actions</url>
     </repository>
