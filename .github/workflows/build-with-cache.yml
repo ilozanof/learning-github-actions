@@ -18,7 +18,7 @@ jobs:
           java-version: 1.8
 
       - name: build with Maven
-        run: mvn clean install
+        run: mvn -B package --file pom.xml
 
       # Set up the cache for Maven
       - name: Set up a cache for Maven
@@ -27,6 +27,12 @@ jobs:
           path: $HOME/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
+      # We deploy the package into GitHub packages
+      - name: Publish to GitHub Packages Apache Maven
+        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: List Env Vars
         run: env
