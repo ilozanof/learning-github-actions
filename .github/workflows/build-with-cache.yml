@@ -30,6 +30,13 @@ jobs:
 
       - name: Set up privileges to publish to GitHub packages
         uses: s4u/maven-settings-action@v2.3.0
+        with:
+          servers: |
+            [{
+                "id": "GitHub-repo",
+                "username": "${{ github.actor }}",
+                "password": "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"
+            }]
 
       # We deploy the package into GitHub packages
       - name: Publish to GitHub Packages Apache Maven
