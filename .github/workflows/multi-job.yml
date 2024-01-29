@@ -22,24 +22,24 @@ jobs:
 
       - name: build with Maven
         run: mvn clean install
-    build-on-windows:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout the Code
-          uses: actions/checkout@v3
+  build-on-windows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Code
+        uses: actions/checkout@v3
 
-        - name: Set up JDK
-          uses: actions/setup-java@v1
-          with:
-            java-version: 1.8
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
 
-        - name: Check policy in Windows
-          run: |
-            echo Here is the Execution Policy!
-            Get-ExecutionPolicy
+      - name: Check policy in Windows
+        run: |
+          echo Here is the Execution Policy!
+          Get-ExecutionPolicy
 
-        - name: List ENV variables
-          run: env
+      - name: List ENV variables
+        run: env
 
-        - name: build with Maven
-          run: mvn clean install
+      - name: build with Maven
+        run: mvn clean install
