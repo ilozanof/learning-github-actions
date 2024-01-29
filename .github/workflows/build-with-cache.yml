@@ -29,7 +29,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Set up privileges to publish to GitHub packages
-      - uses: s4u/maven-settings-action@v2.3.0
+        uses: s4u/maven-settings-action@v2.3.0
         with:
           servers: |
             [{
