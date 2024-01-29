@@ -34,7 +34,7 @@ jobs:
           servers: |
             [{
                 "id": "GitHub-repo",
-                "username": "ilozanof",
+                "username": "${{ github.actor }}",
                 "password": "${{ github.token }}"
             }]
 
