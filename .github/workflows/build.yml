@@ -54,7 +54,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       # Login to AWS ECR
-      - name: Login to Amazon ECRç
+      - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
@@ -68,7 +68,7 @@ jobs:
       - name: Push docker image
         run: |
           # Push the docker container to ECR
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
       - name: List Env Vars
         run: env
