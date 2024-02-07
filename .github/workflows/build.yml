@@ -60,7 +60,7 @@ jobs:
 
       # Build Docker Image
       - name: Build Docker image
-        run: docker build -t $ECR_REPOSITORY_IMAGE_NAME:latest .
+        run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_IMAGE_NAME:latest .
 
       # Push Docker image
       - name: Push docker image
