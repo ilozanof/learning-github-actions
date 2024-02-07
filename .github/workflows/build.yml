@@ -6,6 +6,11 @@ on:
     branches: [ main]
   workflow_dispatch:
 
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: 521221046117.dkr.ecr.us-east-1.amazonaws.com/learning-github-actions
+  ECR_REPOSITORY_IMAGE_NAME: image-actions # set this to your Amazon ECR repository name
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,7 +52,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: us-east-1
+          aws-region: $AWS_REGION
 
       # Login to AWS ECR
       - name: Login to Amazon ECR
@@ -55,13 +60,13 @@ jobs:
 
       # Build Docker Image
       - name: Build Docker image
-        run: docker build -t learning-github-actions:latest .
+        run: docker build -t $ECR_REPOSITORY_IMAGE_NAME:latest .
 
       # Push Docker image
       - name: Push docker image
         run: |
           # Push the docker container to ECR
-          docker push learning-github-actions:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_IMAGE_NAME:latest
 
       - name: List Env Vars
         run: env
