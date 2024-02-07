@@ -8,8 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REGISTRY: 521221046117.dkr.ecr.us-east-1.amazonaws.com/learning-github-actions
-  ECR_REPOSITORY_IMAGE_NAME: image-actions # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: learning-github-actions
 
 jobs:
   build:
@@ -55,18 +54,21 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       # Login to AWS ECR
-      - name: Login to Amazon ECR
+      - name: Login to Amazon ECRç
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
       # Build Docker Image
       - name: Build Docker image
-        run: docker build -t $ECR_REPOSITORY_IMAGE_NAME:latest .
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
 
       # Push Docker image
       - name: Push docker image
         run: |
           # Push the docker container to ECR
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_IMAGE_NAME:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest .
 
       - name: List Env Vars
         run: env
