@@ -41,9 +41,27 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      # Configure AWS ECR
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: us-east-1
+
+      # Login to AWS ECR
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
       # Build Docker Image
       - name: Build Docker image
         run: docker build -t learning-github-actions:latest .
+
+      # Push Docker image
+      - name: Push docker image
+        run: |
+          # Push the docker container to ECR
+          docker push learning-github-actions:latest
 
       - name: List Env Vars
         run: env
