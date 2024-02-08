@@ -29,5 +29,5 @@ jobs:
         run: |
           echo "${{ secrets.AWS_EC2_PRIVATE_KEY }}" > ~/.ec2PrivKey
           chmod 600 ~/.ec2PrivKey
-          ssh -i ~/.ec2PrivKey ec2-user@${{ secrets.AWS_EC2_IP }} << EOF
+          ssh -o StrictHostKeyChecking=no -i ~/.ec2PrivKey ec2-user@${{ secrets.AWS_EC2_IP }} << EOF
           docker-compose -f docker-compose-yml up
