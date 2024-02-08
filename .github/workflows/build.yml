@@ -73,4 +73,9 @@ jobs:
         run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
 
       # Push Docker image
-      - name: Push docker $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      - name: Push docker image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          # Push the docker container to ECR
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
