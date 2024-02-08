@@ -211,11 +211,10 @@ docker-compose -f docker-compose.yml up -d
 
 The previous steps are only for checking locally that everything works. The final goal is to make this all work in CI
 
-> NOTE:
+> **NOTE:**
 > At this moment, this *push.yml* flow is incomplete. Pending thing to do are:
-> * Executing the docker-compose file after connecting to the EC2 instance from the GitHub action fails with a "no basic auth credentials". 
-> * The funny thing is that if we do the same with the commend line as the HitHub action, it wors fine.
-> * The EC2 instance needs to be configured properly, so after running our image we can acce<ss it via browser. So we need to set up the 
+> * Executing the docker-compose file after connecting to the EC2 instance from the GitHub action fails with a "no basic auth credentials". The funny thing is that if we do the same with the commend line as the HitHub action, it wors fine.
+> * The EC2 instance needs to be configured properly, so after running our image we can access it via browser. So we need to set up the 
 > * security groups and the rules to allow HTTP traffic.
 
 # Troubles Summary
