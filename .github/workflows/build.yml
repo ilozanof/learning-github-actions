@@ -1,4 +1,6 @@
-name: Getting started
+name: Build and Deploy
+
+# Events Definition:
 on:
   push:
     branches: [ main ]
@@ -6,16 +8,21 @@ on:
     branches: [ main]
   workflow_dispatch:
 
+# Global Environment Variables
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: learning-github-actions
 
+# Jobs Definition:
 jobs:
+  # Job: Build, run tests, deploy package into GitHub packages, push docker image to
+  # AWS Repo
   build:
     runs-on: ubuntu-latest
     permissions:
       packages: write
     steps:
+      # Check out the Code
       - name: Checkout the Code
         uses: actions/checkout@v3
 
@@ -46,6 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       # Configure AWS ECR
+      # It relies on 2 Secretes defined in the Git Repo
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -65,12 +73,4 @@ jobs:
         run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
 
       # Push Docker image
-      - name: Push docker image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          # Push the docker container to ECR
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-
-      - name: List Env Vars
-        run: env
+      - name: Push docker $ECR_REGISTRY/$ECR_REPOSITORY:latest

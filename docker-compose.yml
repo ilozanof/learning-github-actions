@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  helloworld:
+    image: 521221046117.dkr.ecr.us-east-1.amazonaws.com/learning-github-actions:latest
+    container_name: learning-github-actions
+    ports:
+      - "8080:8080"
