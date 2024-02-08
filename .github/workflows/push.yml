@@ -27,7 +27,7 @@ jobs:
           source: docker-compose.yml
           target: .
 
-      # SSH into EC2 and run docker-compose
+      # SSH into EC2 and run install docker-compose
       - name: SSH into EC2 and run docker-compose
         run: |
           echo "${{ secrets.AWS_EC2_PRIVATE_KEY }}" > ~/.ec2PrivKey
@@ -39,6 +39,9 @@ jobs:
           sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           sudo docker-compose version
+      # SSH-again and run docker-compose
+      - name: SSH again and run docker-compose
+        run: |
           aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}" && aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY}}"  && aws configure set region "${{ env.AWS_REGION}}" && aws configure set output "text"
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 521221046117.dkr.ecr.us-east-1.amazonaws.com
           sudo docker-compose -f docker-compose.yml up
