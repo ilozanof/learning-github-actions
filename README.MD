@@ -126,7 +126,35 @@ The Workflow is defined in `/.github/workflows/build.yml`. This workflow takes c
 building it, testing it, deploying it to GitHub packages, and then building a docker Image and pushing it to our 
 AWS ECR repository.
 
-Now we create a *Dockerfile* to build our image:
+Now we create a *Dockerfile* to build our image. We have 2 Options:
+* We can create a Docker that copies the App JAR and all its dependencies into a Docker image
+* We can generate a Fat/Uvber JAR file that contains the App+all its dependencies and we only copuy this file into Docker.
+
+### Docker file with Thin-Jar
+
+In this case the Docker image can be build after packaging the project with the following command:
+
+```
+mvn clean package -Dquarkus.package.type=uber-jar
+
+```
+And the Docker file is like this:
+
+```
+FROM openjdk:17
+MAINTAINER Ivan Lozano
+WORKDIR .
+COPY target/actions-1.0-SNAPSHOT-runner.jar app.jar
+ENTRYPOINT ["java","-jar", "/app.jar"]
+```
+
+### Docker file with Fat-Jar
+
+In this case the Docker image can be build after packaging the project with the following command:
+
+```
+mvn clean package
+```
 
 ```
 FROM openjdk:17
